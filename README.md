@@ -5,9 +5,8 @@
 ### 状态：已成功结项
 
 `Author:zhanxuegui` 
-`Date:2017/12/15`
 
-
+注：如果不能正确显示图片，请下载成果佐证材料.docx文件
 
 - 自制智能单车锁装置与配套软件运行时效果图
 ![](https://github.com/victory1355/byte/blob/master/show/app%26lock.jpg)
@@ -20,4 +19,4 @@
 
 
 
-注：如果不能正确显示图片，请下载成果佐证材料.docx文件
+
