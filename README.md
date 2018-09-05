@@ -6,6 +6,8 @@
 
 
 - 自制智能单车锁装置正面图
+![](https://github.com/victory1355/LOG_4_Embedded-Software-Development/blob/master/ic.png)
+
 
 - 智能单车锁配套软件运行时如下
 
