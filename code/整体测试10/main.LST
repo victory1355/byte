@@ -1,0 +1,89 @@
+C51 COMPILER V9.01   MAIN                                                                  03/16/2018 11:45:15 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN main.OBJ
+COMPILER INVOKED BY: D:\keil\C51\BIN\C51.EXE main.c BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          /*
+   2              Author:詹学桂
+   3                  Date:  2018/1/28
+   4          
+   5                  产品：基于GPS和蓝牙技术的智能单车锁
+   6                  描述：通过手机APP于智能锁蓝牙进行通信，实现开锁功能
+   7          
+   8                  硬件连接说明：
+   9                  (STC89C52)P2^0 <------> I/O(蜂鸣器)
+  10                            P1^3 <------> ENA(L298)
+  11                                    P1^2 <------> IN2(L298)
+  12                                    P1^1 <------> IN1(L298)
+  13          
+  14                  (GPS-U-blox)TXD <-------> RXD(HC-05蓝牙模块)                                                     
+  15              (STC89C52)  RXD <-------> TXD(HC-05蓝牙模块)
+  16          
+  17                  具体功能描述：通过手机APP发送指令'o'，MCU接收到指令驱动电机进行开锁
+  18          
+  19          */
+  20           
+  21          #include "head.h"
+  22          
+  23          /*开锁标志*/
+  24          unsigned char flag_lock;
+  25          
+  26          /*主控制逻辑*/
+  27          void main()
+  28          {
+  29   1               init_moto();
+  30   1               init_buzzer();
+  31   1               Init_serial();
+  32   1      
+  33   1               flag_lock = 0;
+  34   1               while(1)
+  35   1               {
+  36   2                        if(flag_lock == 1)
+  37   2                        {
+  38   3                           EA = 0;
+  39   3      
+  40   3                               buzzer();
+  41   3                               moto();
+  42   3      
+  43   3                               EA = 1;
+  44   3                               flag_lock = 0;  
+  45   3                        }             
+  46   2               }
+  47   1               
+  48   1      }
+  49          
+  50          
+  51          /*串口中断响应*/
+  52          void open_lock() interrupt  4
+  53          {
+  54   1           unsigned char recieve_data;
+  55   1      
+C51 COMPILER V9.01   MAIN                                                                  03/16/2018 11:45:15 PAGE 2   
+
+  56   1           recieve_data = SBUF;
+  57   1           if(recieve_data == 'o')
+  58   1                      flag_lock = 1;
+  59   1               //if(recieve_data == 'c')
+  60   1                      //flag_lock = 0;
+  61   1      
+  62   1               RI = 0;        //手动置零      
+  63   1      }
+  64          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     54    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

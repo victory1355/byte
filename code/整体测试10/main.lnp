@@ -1,0 +1,8 @@
+"STARTUP.obj",
+"main.obj",
+"serial.obj",
+"moto.obj",
+"delay.obj",
+"buzzer.obj" 
+TO "main" 
+RAMSIZE(256) 
